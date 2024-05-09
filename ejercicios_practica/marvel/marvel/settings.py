@@ -43,7 +43,10 @@ BASE_APPS = [
 ]
 
 # Acá van las apps de 3ros que necesitamos agregar para que Django las encuentre.
-THIRD_APPS = ['rest_framework']
+THIRD_APPS = ['rest_framework',
+              'rest_framework.authtoken',
+              'drf_yasg',
+              ]
 
 # Acá van las apps que creamos nosotros.
 LOCAL_APPS = ['e_commerce']
@@ -64,12 +67,14 @@ INSTALLED_APPS = BASE_APPS + THIRD_APPS + LOCAL_APPS
 # ]
 
 REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        ),        
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.AllowAny',
     ),
 }
-
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
